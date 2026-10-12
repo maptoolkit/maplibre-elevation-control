@@ -1,0 +1,34 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+jobs:
+  release:
+    uses: maptoolkit/.github/.github/workflows/npm-release.yml@main
+    permissions:
+      contents: write
+      pull-requests: write
+    secrets:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  deploy-pages:
+    needs: release
+    if: needs.release.outputs.published == 'true'
+    uses: ./.github/workflows/deploy-pages.yml
+    permissions:
+      id-token: write
+      pages: write
+      contents: read
+
+  publish-docs:
+    needs: release
+    if: needs.release.outputs.published == 'true'
+    uses: ./.github/workflows/publish-docs.yml
+    permissions:
+      contents: read
+    secrets:
+      DOCS_REPO_TOKEN: ${{ secrets.DOCS_REPO_TOKEN }}

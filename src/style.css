@@ -1,0 +1,137 @@
+@import "@maptoolkit/elevation-profile/style.css";
+
+.maplibre-elevation-control {
+  --elevation-control-map: 0 2px 8px rgba(25, 31, 57, 0.15), 0 0 0 1px rgba(25, 31, 57, 0.06);
+  --elevation-control-bg-color: rgba(255, 255, 255, 0.75);
+  --elevation-control-width: 420px;
+  --elevation-control-transition: 0.3s ease;
+
+  background-color: var(--elevation-control-bg-color);
+  border-radius: 10px;
+  padding: 4px 2px 4px 6px;
+  width: var(--elevation-control-width);
+  position: relative;
+  box-shadow: var(--elevation-control-map);
+  transition:
+    width var(--elevation-control-transition),
+    padding var(--elevation-control-transition),
+    margin var(--elevation-control-transition),
+    border-radius var(--elevation-control-transition);
+}
+
+.maplibre-elevation-control .maptoolkit-elevation-profile {
+  transition: margin var(--elevation-control-transition);
+}
+
+/* Fade out instead of display: none, which can't be transitioned. */
+.maplibre-elevation-control .maptoolkit-elevation-profile svg :not(.maptoolkit-elevation-profile-area):not(.maptoolkit-elevation-profile-line),
+.maplibre-elevation-control-close {
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s;
+}
+
+.maplibre-elevation-control-close {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  opacity: 0.4;
+}
+
+.maplibre-elevation-control-close:hover,
+.maplibre-elevation-control-close:focus-visible {
+  opacity: 1;
+}
+
+.maplibre-elevation-control-close::before {
+  content: "×";
+  font-size: 18px;
+  line-height: 20px;
+}
+
+.maplibre-elevation-control .maptoolkit-elevation-profile .maptoolkit-elevation-profile-axis-label {
+  font-size: 26px;
+}
+
+/* Moves the badge away from the close button. The translate property adds to the badge's transform attribute instead of replacing it. */
+.maplibre-elevation-control .maptoolkit-elevation-profile .maptoolkit-elevation-profile-hover-badge {
+  translate: -16px 0;
+}
+
+.maplibre-elevation-control .maptoolkit-elevation-profile .maptoolkit-elevation-profile-hover-badge-text {
+  font-size: 28px;
+  stroke-width: 8;
+}
+
+.maplibre-elevation-control .maptoolkit-elevation-profile .maptoolkit-elevation-profile-line {
+  stroke-width: 8;
+  transition: stroke-width var(--elevation-control-transition);
+}
+
+.maplibre-elevation-control .maptoolkit-elevation-profile .maptoolkit-elevation-profile-grid-line-y {
+  stroke-width: 3;
+  stroke-dasharray: 3 30;
+}
+
+.maplibre-elevation-control .maptoolkit-elevation-profile .maptoolkit-elevation-profile-hover-line {
+  stroke-width: 2;
+  stroke-dasharray: none;
+}
+
+.maplibre-elevation-control .maptoolkit-elevation-profile .maptoolkit-elevation-profile-hover-dot {
+  r: 12;
+  stroke-width: 4;
+}
+
+.maplibre-elevation-control .maptoolkit-elevation-profile .maptoolkit-elevation-profile-hover-badge-dot {
+  r: 12;
+}
+
+.maplibre-elevation-control .maptoolkit-elevation-profile .maptoolkit-elevation-profile-selection-line {
+  stroke-width: 10;
+}
+
+.maplibre-elevation-control.maplibre-elevation-control-collapsed {
+  padding: 2px 4px 0 0;
+  width: 100px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.maplibre-elevation-control.maplibre-elevation-control-collapsed .maptoolkit-elevation-profile {
+  margin-left: -4px;
+  margin-bottom: -1px;
+  pointer-events: none;
+}
+
+.maplibre-elevation-control.maplibre-elevation-control-collapsed .maptoolkit-elevation-profile-marker-start,
+.maplibre-elevation-control.maplibre-elevation-control-collapsed .maptoolkit-elevation-profile-marker-end,
+.maplibre-elevation-control.maplibre-elevation-control-collapsed .maptoolkit-elevation-profile-marker-max,
+.maplibre-elevation-control.maplibre-elevation-control-collapsed .maptoolkit-elevation-profile-hover-line,
+.maplibre-elevation-control.maplibre-elevation-control-collapsed .maptoolkit-elevation-profile-hover-dot,
+.maplibre-elevation-control.maplibre-elevation-control-collapsed .maptoolkit-elevation-profile-hover-capture,
+.maplibre-elevation-control.maplibre-elevation-control-collapsed .maptoolkit-elevation-profile-hover-badge,
+.maplibre-elevation-control.maplibre-elevation-control-collapsed .maptoolkit-elevation-profile-grid-line,
+.maplibre-elevation-control.maplibre-elevation-control-collapsed .maptoolkit-elevation-profile-axis-label,
+.maplibre-elevation-control.maplibre-elevation-control-collapsed .maptoolkit-elevation-profile-section,
+.maplibre-elevation-control.maplibre-elevation-control-collapsed .maplibre-elevation-control-close {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.maplibre-elevation-control.maplibre-elevation-control-collapsed .maptoolkit-elevation-profile .maptoolkit-elevation-profile-line {
+  stroke-width: 16;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .maplibre-elevation-control,
+  .maplibre-elevation-control * {
+    transition: none !important;
+  }
+}

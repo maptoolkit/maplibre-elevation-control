@@ -1,0 +1,23 @@
+name: Publish Docs
+
+on:
+  workflow_dispatch:
+  workflow_call:
+    secrets:
+      DOCS_REPO_TOKEN:
+        required: true
+
+jobs:
+  publish-docs:
+    uses: maptoolkit/.github/.github/workflows/publish-docs.yml@main
+    with:
+      docs-path: docs/content/plugins/maplibre-elevation-control.md
+      front-matter: |
+        title: "Show an Elevation Profile in MapLibre GL JS"
+        linkTitle: "Elevation Control"
+        description: "Show an interactive elevation profile for a 3D GeoJSON route on a MapLibre GL JS map with the Maptoolkit Elevation Control plugin: install, options, localization, events, methods, and styling."
+        weight: 60
+        libraries: [maplibre]
+        tags: [maplibre, controls, elevation]
+    secrets:
+      DOCS_REPO_TOKEN: ${{ secrets.DOCS_REPO_TOKEN }}
